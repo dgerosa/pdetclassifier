@@ -7,7 +7,7 @@
 
 This repository contains models supporting [arXiv:XXXX.XXXXX](https://arxiv.org/abs/XXXX.XXXXX). We are very happy if you find this useful for your research; please cite our paper. 
 
-For DOI pointing to this repository: 
+For a DOI pointing to this repository: ZENODO BADGE
 
 ## Data products
 
