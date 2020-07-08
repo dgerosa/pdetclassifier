@@ -15,7 +15,7 @@ We provide three kind of data products:
 
 - Our code: `pdetclassifier.py`. See below for a short description.
 - Pre-trained TensorFlow neural networks: `trained_*.h5`.
-- Training/validation samples: `sample_*.h5`.These can be downloaded from the [github release page][https://github.com/dgerosa/pdetclassifier/releases].
+- Training/validation samples: `sample_*.h5`.These can be downloaded from the [github release page](https://github.com/dgerosa/pdetclassifier/releases).
 
 Models were trained on samples of N=2e7 binaries. This sample is divided in two chunks of 1e7 sources each used for training and validation. 
 
