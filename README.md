@@ -13,21 +13,23 @@ For a DOI pointing to this repository: ZENODO BADGE
 
 We provide three kind of data products:
 
-- Our code is `pdetclassifier.py`, see below for a short description.
-- Pre-trained TensorFlow neural networks are called `trained_*.h5`.
-- Training/validation sample are called `sample_*.h5` and can be downloaded from the github release page.
+- Our code: `pdetclassifier.py`. See below for a short description.
+- Pre-trained TensorFlow neural networks: `trained_*.h5`.
+- Training/validation samples: `sample_*.h5`.These can be downloaded from the [github release page][add link].
 
-Models were trained on samples of N=2e7 binaries. This sample is divided in two chunks of 1e7 sources each used for training and validation. The following models are described carefully in [arXiv:XXXX.XXXXX](https://arxiv.org/abs/XXXX.XXXXX). 
-- trained_2e7_design_nonspinning_quadrupole_1detector.h5
-- trained_2e7_design_precessing_higherordermodes_1detector.h5
-- trained_2e7_design_precessing_higherordermodes_3detectors.h5
-They are computed assuming LIGO/Virgo at design sensitivity. In particular, we use the `aLIGODesignSensitivityP1200087`, `AdVDesignSensitivityP1200087` noise curves available in `lal`. 
+Models were trained on samples of N=2e7 binaries. This sample is divided in two chunks of 1e7 sources each used for training and validation. 
 
-The following additional models used representative noise curves for LIGO/Virgo O1+O2, O3, and O4. The training distributions and the network setup is the same we describe in the paper. 
-- trained_2e7_O1O2_precessing_higherordermodes_3detectors.h5
-- trained_2e7_O3_precessing_higherordermodes_3detectors.h5
-- trained_2e7_O4_precessing_higherordermodes_3detectors.h5
-For O1+O3 we use the `aLIGOEarlyHighSensitivityP1200087` and `AdVEarlyHighSensitivityP1200087` noise curves from `lal`. For O3 and O4 we use the txt files provided [here][https://dcc.ligo.org/LIGO-T2000012/public].
+The following models are those described in [arXiv:XXXX.XXXXX](https://arxiv.org/abs/XXXX.XXXXX). 
+- `trained_2e7_design_nonspinning_quadrupole_1detector.h5`
+- `trained_2e7_design_precessing_higherordermodes_1detector.h5`
+- `trained_2e7_design_precessing_higherordermodes_3detectors.h5`
+They are computed assuming LIGO/Virgo noise curves `aLIGODesignSensitivityP1200087`, `AdVDesignSensitivityP1200087` from `lal`. 
+
+The following additional models use representative noise curves for LIGO/Virgo O1+O2, O3, and O4. The training distributions and the network setup is the same as described in the paper. 
+- `trained_2e7_O1O2_precessing_higherordermodes_3detectors.h5`
+- `trained_2e7_O3_precessing_higherordermodes_3detectors.h5`
+- `trained_2e7_O4_precessing_higherordermodes_3detectors.h5`
+For O1+O3 we use the `aLIGOEarlyHighSensitivityP1200087` and `AdVEarlyHighSensitivityP1200087` noise curves from `lal`. For O3 and O4 we use the txt files from [LIGO-T2000012][https://dcc.ligo.org/LIGO-T2000012/public].
 
 
 ## Code and examples
@@ -71,9 +73,9 @@ The `binaries` object is a python dictionary with keys
 - `psi`: polarization.
 - `snr`: the SNR
 - `det`: detectability, equal to 1 if detectable or 0 if not detectable.
-The frame of the spins is defined such that z is along L at 20Hz (as in `lal`).
+The frame of the spins is defined such that z is along L at 20 Hz (as in `lal`).
 
-The `predictions` one gets at the end is a list of 0s and 1s to estimate the detectability. You can then marginalize over the extrinsic angles to compute the detection probability pdet (by default the pdet function assumes isotropic inclination, sky-location and polarization).
+The `predictions` one gets at the end is a list of 0s and 1s, encoding the predicted detectability. One can then marginalize over the extrinsic angles to compute the detection probability pdet (by default the `pdet` function assumes isotropic inclination, sky-location and polarization).
 
 
 ## Example 2: train your own neural network
