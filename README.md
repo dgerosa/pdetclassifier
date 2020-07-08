@@ -21,13 +21,13 @@ Models were trained on samples of N=2e7 binaries. This sample is divided in two 
 - trained_2e7_design_nonspinning_quadrupole_1detector.h5
 - trained_2e7_design_precessing_higherordermodes_1detector.h5
 - trained_2e7_design_precessing_higherordermodes_3detectors.h5
-They are computed assuming LIGO/Virgo at design sensitivity. In particular, we use the `aLIGODesignSensitivityP1200087`, `AdVDesignSensitivityP1200087` noise curves from here. 
+They are computed assuming LIGO/Virgo at design sensitivity. In particular, we use the `aLIGODesignSensitivityP1200087`, `AdVDesignSensitivityP1200087` noise curves available in `lal`. 
 
 The following additional models used representative noise curves for LIGO/Virgo O1+O2, O3, and O4. The training distributions and the network setup is the same we describe in the paper. 
 - trained_2e7_O1O2_precessing_higherordermodes_3detectors.h5
 - trained_2e7_O3_precessing_higherordermodes_3detectors.h5
 - trained_2e7_O4_precessing_higherordermodes_3detectors.h5
-For O1+O3 we use the `aLIGOEarlyHighSensitivityP1200087` and `AdVEarlyHighSensitivityP1200087` noise curves from here. For O3 and O4 we use the txt file provided here.
+For O1+O3 we use the `aLIGOEarlyHighSensitivityP1200087` and `AdVEarlyHighSensitivityP1200087` noise curves from `lal`. For O3 and O4 we use the txt files provided [here][https://dcc.ligo.org/LIGO-T2000012/public].
 
 
 ## Code and examples
@@ -55,15 +55,54 @@ testnetwork(model,test_binaries)
 newbinaries = generate_binaries(10)
 predictions = predictnetwork(model, newbinaries)
 print(predictions)
+# Regenerate the extrinsic angles and marginalize over them
+pdets = pdet(newbinaries, Nmc=1000)
+print(pdets)
 ```
 
-The `binaries` object is a python dictionary with keys `['mtot','q','z','chi1x','chi1y','chi1z','chi2x','chi2y','chi2z','iota','ra','dec','psi']'
+The `binaries` object is a python dictionary with keys 
+- `mtot`: detector-frame total mass
+- `q`: mass ratio
+- `z`: redshift
+- `chi1x`,`chi1y`,`chi1z`: dimensionless spin components of the primary
+- `chi2x`,`chi2y`,`chi2z`: dimensionless spin components of the secondary
+- `iota`: inclidation
+- `ra`,`dec`: sky location
+- `psi`: polarization.
+- `snr`: the SNR
+- `det`: detectability, equal to 1 if detectable or 0 if not detectable.
+The frame of the spins is defined such that z is along L at 20Hz (as in `lal`).
+
+The `predictions` one gets at the end is a list of 0s and 1s to estimate the detectability. You can then marginalize over the extrinsic angles to compute the detection probability pdet (by default the pdet function assumes isotropic inclination, sky-location and polarization).
 
 
 ## Example 2: train your own neural network
 
+Here is an example where we generate a small training set of 1000 binaries, train a neural network, and evaluate the performances. 
 
-
+```
+# Generate and store a sample
+store_binaries('sample.h5',1e3,approximant='IMRPhenomXPHM',noisecurve='design',SNRthreshold=12)
+# Load sample
+binaries= readsample('sample.h5')
+# Split test/training
+train_binaries,test_binaries=splittwo(binaries)
+# Train a neural network
+trainnetwork(train_binaries,test_binaries,filename='trained.h5')
+# Load trained network
+model = loadnetwork('trained.h5')
+# Evaluate performances on training sample
+testnetwork(model,train_binaries)
+# Evaluate performances on test sample
+testnetwork(model,test_binaries)
+# Predict on new sample
+newbinaries = generate_binaries(10)
+predictions = predictnetwork(model, newbinaries)
+print(predictions)
+# Regenerate the extrinsic angles and marginalize over them
+pdets = pdet(newbinaries, Nmc=1000)
+print(pdets)
+```
 
 
 
