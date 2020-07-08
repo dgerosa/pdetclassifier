@@ -29,7 +29,7 @@ The following additional models use representative noise curves for LIGO/Virgo O
 - `trained_2e7_O1O2_precessing_higherordermodes_3detectors.h5`
 - `trained_2e7_O3_precessing_higherordermodes_3detectors.h5`
 - `trained_2e7_O4_precessing_higherordermodes_3detectors.h5`
-For O1+O3 we use the `aLIGOEarlyHighSensitivityP1200087` and `AdVEarlyHighSensitivityP1200087` noise curves from `lal`. For O3 and O4 we use the txt files from [LIGO-T2000012][https://dcc.ligo.org/LIGO-T2000012/public].
+For O1+O3 we use the `aLIGOEarlyHighSensitivityP1200087` and `AdVEarlyHighSensitivityP1200087` noise curves from `lal`. For O3 and O4 we use the txt files from [LIGO-T2000012](https://dcc.ligo.org/LIGO-T2000012/public).
 
 
 ## Code and examples
