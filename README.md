@@ -55,11 +55,11 @@ testnetwork(model,train_binaries)
 # Evaluate performances on test sample
 testnetwork(model,test_binaries)
 # Predict on new sample
-newbinaries = generate_binaries(10)
+newbinaries = generate_binaries(100)
 predictions = predictnetwork(model, newbinaries)
 print(predictions)
 # Regenerate the extrinsic angles and marginalize over them
-pdets = pdet(newbinaries, Nmc=1000)
+pdets = pdet(model,newbinaries, Nmc=1000)
 print(pdets)
 ```
 
@@ -99,11 +99,11 @@ testnetwork(model,train_binaries)
 # Evaluate performances on test sample
 testnetwork(model,test_binaries)
 # Predict on new sample
-newbinaries = generate_binaries(10)
+newbinaries = generate_binaries(100)
 predictions = predictnetwork(model, newbinaries)
 print(predictions)
 # Regenerate the extrinsic angles and marginalize over them
-pdets = pdet(newbinaries, Nmc=1000)
+pdets = pdet(model,newbinaries, Nmc=1000)
 print(pdets)
 ```
 
