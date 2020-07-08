@@ -5,13 +5,14 @@
 > We present a novel machine-learning approach to estimate  selection biases in gravitational-wave observations. Using techniques similar to those commonly employed in image classification and pattern recognition, we train a series of neural-network classifiers to predict the LIGO/Virgo detectability of gravitational-wave signals from compact-binary mergers. We include the effect of spin precession, higher-order modes, and multiple detectors and show that their omission, as it is common in large population studies, tends to overestimate the inferred merger rate. Although here we train our classifiers using a simple signal-to-noise ratio threshold, our approach is ready to be used in conjunction with full pipeline injections, thus paving the way toward including empirical distributions of  astrophysical and noise triggers into gravitational-wave population analyses.
 
 
-This repository contains models supporting [arXiv:XXXX.XXXXX](https://arxiv.org/abs/XXXX.XXXXX). We are very happy if you find this useful for your research; please cite our paper. 
+This repository contains models supporting [arXiv:XXXX.XXXXX](https://arxiv.org/abs/XXXX.XXXXX). We are very happy if you find this useful for your research; please cite our paper. For a DOI pointing to this repository: ZENODO BADGE
 
-For a DOI pointing to this repository: ZENODO BADGE
+This code is developed and maintained by [Davide Gerosa](https://davidegerosa.com/). To report bugs, please open an issue on GitHub. If you want to contact me, it's `d.gerosa@bham.ac.uk`. 
+
 
 ## Data products
 
-We provide three kind of data products:
+We provide three kinds of data products:
 
 - Our code: `pdetclassifier.py`. See below for a short description.
 - Pre-trained TensorFlow neural networks: `trained_*.h5`.
@@ -19,17 +20,17 @@ We provide three kind of data products:
 
 Models were trained on samples of N=2e7 binaries. This sample is divided in two chunks of 1e7 sources each used for training and validation. 
 
-The following models are those described in [arXiv:XXXX.XXXXX](https://arxiv.org/abs/XXXX.XXXXX). 
+The following models are described in [arXiv:XXXX.XXXXX](https://arxiv.org/abs/XXXX.XXXXX). 
 - `trained_2e7_design_nonspinning_quadrupole_1detector.h5`
 - `trained_2e7_design_precessing_higherordermodes_1detector.h5`
 - `trained_2e7_design_precessing_higherordermodes_3detectors.h5`
-They are computed assuming LIGO/Virgo noise curves `aLIGODesignSensitivityP1200087`, `AdVDesignSensitivityP1200087` from `lal`. 
+They are computed assuming LIGO/Virgo noise curves `aLIGODesignSensitivityP1200087` and `AdVDesignSensitivityP1200087` from `lal`. 
 
-The following additional models use representative noise curves for LIGO/Virgo O1+O2, O3, and O4. The training distributions and the network setup is the same as described in the paper. 
+The following additional models use noise curves for LIGO/Virgo O1+O2, O3, and forecasted O4. The training distributions and the network setup is the same as described in the paper. 
 - `trained_2e7_O1O2_precessing_higherordermodes_3detectors.h5`
 - `trained_2e7_O3_precessing_higherordermodes_3detectors.h5`
 - `trained_2e7_O4_precessing_higherordermodes_3detectors.h5`
-For O1+O3 we use the `aLIGOEarlyHighSensitivityP1200087` and `AdVEarlyHighSensitivityP1200087` noise curves from `lal`. For O3 and O4 we use the txt files from [LIGO-T2000012](https://dcc.ligo.org/LIGO-T2000012/public).
+For O1+O2 we use the `aLIGOEarlyHighSensitivityP1200087` and `AdVEarlyHighSensitivityP1200087` noise curves from `lal`. For O3 and O4 we use the txt files from [LIGO-T2000012](https://dcc.ligo.org/LIGO-T2000012/public).
 
 
 ## Code and examples
@@ -38,7 +39,7 @@ First, install the following python packages: `tensorflow`, `astropy`, `lalsuite
 
 *Note*: if used as it is, the `pdetclassifier.py` script assumes precessing systems, higher-order modes, and a three-detector network. If you want to do something different, you'll need to hack it a little bit.  
 
-## Example 1: use a precomputed model
+### Example 1: use a precomputed model
 
 Here is a code snippet to use a precomputed model:
 
@@ -75,12 +76,12 @@ The `binaries` object is a python dictionary with keys
 - `det`: detectability, equal to 1 if detectable or 0 if not detectable.
 The frame of the spins is defined such that z is along L at 20 Hz (as in `lal`).
 
-The `predictions` one gets at the end is a list of 0s and 1s, encoding the predicted detectability. One can then marginalize over the extrinsic angles to compute the detection probability pdet (by default the `pdet` function assumes isotropic inclination, sky-location and polarization).
+The `predictions` one gets at the end is a list of 0s and 1s, encoding the predicted detectability. One can then marginalize over the extrinsic angles to compute the detection probability pdet (by default the `pdet` function assumes isotropic inclination, sky-location and polarization, `Nmc` is the number of Monte Carlo samples).
 
 
-## Example 2: train your own neural network
+### Example 2: train your own neural network
 
-Here is an example where we generate a small training set of 1000 binaries, train a neural network, and evaluate the performances. 
+Here is an example where we generate a small sample of 1000 binaries, train a neural network, and evaluate the performances.
 
 ```
 # Generate and store a sample
