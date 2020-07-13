@@ -5,7 +5,8 @@
 > We present a novel machine-learning approach to estimate  selection biases in gravitational-wave observations. Using techniques similar to those commonly employed in image classification and pattern recognition, we train a series of neural-network classifiers to predict the LIGO/Virgo detectability of gravitational-wave signals from compact-binary mergers. We include the effect of spin precession, higher-order modes, and multiple detectors and show that their omission, as it is common in large population studies, tends to overestimate the inferred merger rate. Although here we train our classifiers using a simple signal-to-noise ratio threshold, our approach is ready to be used in conjunction with full pipeline injections, thus paving the way toward including empirical distributions of  astrophysical and noise triggers into gravitational-wave population analyses.
 
 
-This repository contains models supporting [arXiv:XXXX.XXXXX](https://arxiv.org/abs/XXXX.XXXXX). We are very happy if you find this useful for your research; please cite our paper. For a DOI pointing to this repository: ZENODO BADGE
+This repository contains models supporting [arXiv:XXXX.XXXXX](https://arxiv.org/abs/XXXX.XXXXX). We are very happy if you find this useful for your research; please cite our paper. For a DOI pointing to this repository: [![DOI](https://zenodo.org/badge/278096080.svg)](https://zenodo.org/badge/latestdoi/278096080)
+
 
 This code is developed and maintained by [Davide Gerosa](https://davidegerosa.com/). To report bugs, please open an issue on GitHub. If you want to contact me, it's `d.gerosa@bham.ac.uk`. 
 
