@@ -1,5 +1,5 @@
 '''
-Gravitational-wave detectability using a neural-network classifier
+Gravitational-wave selection effects using neural-network classifiers
 Davide Gerosa, Birmingham UK, 2020.
 
 We are very happy if you want to use this code for your research.
