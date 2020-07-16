@@ -3,8 +3,7 @@ Gravitational-wave detectability using a neural-network classifier
 Davide Gerosa, Birmingham UK, 2020.
 
 We are very happy if you want to use this code for your research.
-Please cite our paper:
-XXXX
+Please cite our paper: arXiv:2007.06585.
 '''
 
 __author__='Davide Gerosa'
