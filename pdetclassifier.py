@@ -59,16 +59,16 @@ def lookup_limits():
         'mtot'  : [2,1000],
         'q'     : [0.1,1],
         'z'     : [1e-4,4],
-        'chi1x'  : [0,1],
-        'chi1y'  : [0,1],
-        'chi1z'  : [0,1],
-        'chi2x'  : [0,1],
-        'chi2y'  : [0,1],
-        'chi2z'  : [0,1],
+        'chi1x'  : [-1,1],
+        'chi1y'  : [-1,1],
+        'chi1z'  : [-1,1],
+        'chi2x'  : [-1,1],
+        'chi2y'  : [-1,1],
+        'chi2z'  : [-1,1],
         'iota'  : [0,np.pi],
         'ra'    : [-np.pi,np.pi],
         'dec'   : [-np.pi/2,np.pi/2],
-        'psi'   : [-np.pi,np.pi]
+        'psi'   : [0,np.pi]
         }
 
     return limits
@@ -88,8 +88,8 @@ def generate_binaries(N):
     for var in ['mtot','q','z']:
         binaries[var]=np.random.uniform(min(limits[var]),max(limits[var]),N)
     binaries['iota']= np.arccos(np.random.uniform(-1,1,N))
-    for var in ['ra','psi']:
-        binaries[var]= np.pi*np.random.uniform(-1,1,N)
+    binaries['ra']= np.pi*np.random.uniform(-1,1,N)
+    binaries['psi']= np.pi*np.random.uniform(0,1,N)
     binaries['dec']= np.arccos(np.random.uniform(-1,1,N))- np.pi/2
 
     mag = np.random.uniform(0,1,N)
