@@ -395,7 +395,28 @@ def pdet(model,binaries, Nmc = 10000):
 
 if __name__ == '__main__':
 
-    if True:
+    if False:
+
+        # Load sample
+        binaries= readsample('sample_2e7_design_precessing_higherordermodes_3detectors.h5')
+        # Split test/training
+        train_binaries,test_binaries=splittwo(binaries)
+        # Load trained network
+        model = loadnetwork('trained_2e7_design_precessing_higherordermodes_3detectors.h5')
+        # Evaluate performances on training sample
+        testnetwork(model,train_binaries)
+        # Evaluate performances on test sample
+        testnetwork(model,test_binaries)
+        # Predict on new sample
+        newbinaries = generate_binaries(100)
+        predictions = predictnetwork(model, newbinaries)
+        print(predictions)
+        # Regenerate the extrinsic angles and marginalize over them
+        pdets = pdet(model,newbinaries, Nmc=1000)
+        print(pdets)
+
+
+    if False:
 
         # Generate and store a sample
         store_binaries('sample.h5',1e3,approximant='IMRPhenomXPHM',noisecurve='design',SNRthreshold=12)
@@ -419,22 +440,31 @@ if __name__ == '__main__':
         pdets = pdet(model,newbinaries, Nmc=1000)
         print(pdets)
 
-    if False:
 
-        # Load sample
-        binaries= readsample('sample_2e7_design_precessing_higherordermodes_3detectors.h5')
-        # Split test/training
-        train_binaries,test_binaries=splittwo(binaries)
+
+    if True:
+
+        #
+        # Initialize
+        binaries={}
+        N = int(1e3)
+        binaries = generate_binaries(N)
+        # Populate with your distribution
+        binaries['mtot'] = np.random.normal(30, 3, N )
+        binaries['q'] = np.random.uniform(0.1,1,N)
+        binaries['z'] = np.random.normal(0.2, 0.01, N )
+        binaries['chi1x'] = np.random.uniform(0, 0.1, N )
+        binaries['chi1y'] = np.random.uniform(0, 0.1, N )
+        binaries['chi1z'] = np.random.uniform(0, 0.1, N )
+        binaries['chi2x'] = np.random.uniform(0, 0.1, N )
+        binaries['chi2y'] = np.random.uniform(0, 0.1, N )
+        binaries['chi2z'] = np.random.uniform(0, 0.1, N )
         # Load trained network
         model = loadnetwork('trained_2e7_design_precessing_higherordermodes_3detectors.h5')
-        # Evaluate performances on training sample
-        testnetwork(model,train_binaries)
-        # Evaluate performances on test sample
-        testnetwork(model,test_binaries)
-        # Predict on new sample
-        newbinaries = generate_binaries(100)
-        predictions = predictnetwork(model, newbinaries)
-        print(predictions)
-        # Regenerate the extrinsic angles and marginalize over them
-        pdets = pdet(model,newbinaries, Nmc=1000)
+        # Compute detectability averaged over extrinsic parameters
+        pdets = pdet(model,binaries, Nmc=1000)
         print(pdets)
+        # Integrate over entire population
+        predictions = predictnetwork(model, binaries)
+        integral = np.sum(predictions)/N
+        print(integral)
