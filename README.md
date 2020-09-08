@@ -112,29 +112,29 @@ print(pdets)
 
 Here is an example where we just compute the detectability of an injected population using one of our neural networks
 
-        # Initialize
-        binaries={}
-        N = int(1e3)
-        binaries = generate_binaries(N)
-        # Populate with your distribution
-        binaries['mtot'] = np.random.normal(30, 3, N )
-        binaries['q'] = np.random.uniform(0.1,1,N)
-        binaries['z'] = np.random.normal(0.2, 0.01, N )
-        binaries['chi1x'] = np.random.uniform(0, 0.1, N )
-        binaries['chi1y'] = np.random.uniform(0, 0.1, N )
-        binaries['chi1z'] = np.random.uniform(0, 0.1, N )
-        binaries['chi2x'] = np.random.uniform(0, 0.1, N )
-        binaries['chi2y'] = np.random.uniform(0, 0.1, N )
-        binaries['chi2z'] = np.random.uniform(0, 0.1, N )
-        # Load trained network
-        model = loadnetwork('trained_2e7_design_precessing_higherordermodes_3detectors.h5')
-        # Compute detectability averaged over extrinsic parameters
-        pdets = pdet(model,binaries, Nmc=1000)
-        print(pdets)
-        # Integrate over entire population
-        predictions = predictnetwork(model, binaries)
-        integral = np.sum(predictions)/N
-        print(integral)
+    # Initialize
+    binaries={}
+    N = int(1e3)
+    binaries = generate_binaries(N)
+    # Populate with your distribution
+    binaries['mtot'] = np.random.normal(30, 3, N )
+    binaries['q'] = np.random.uniform(0.1,1,N)
+    binaries['z'] = np.random.normal(0.2, 0.01, N )
+    binaries['chi1x'] = np.random.uniform(0, 0.1, N )
+    binaries['chi1y'] = np.random.uniform(0, 0.1, N )
+    binaries['chi1z'] = np.random.uniform(0, 0.1, N )
+    binaries['chi2x'] = np.random.uniform(0, 0.1, N )
+    binaries['chi2y'] = np.random.uniform(0, 0.1, N )
+    binaries['chi2z'] = np.random.uniform(0, 0.1, N )
+    # Load trained network
+    model = loadnetwork('trained_2e7_design_precessing_higherordermodes_3detectors.h5')
+    # Compute detectability averaged over extrinsic parameters
+    pdets = pdet(model,binaries, Nmc=1000)
+    print(pdets)
+    # Integrate over entire population
+    predictions = predictnetwork(model, binaries)
+    integral = np.sum(predictions)/N
+    print(integral)
 
 
 
